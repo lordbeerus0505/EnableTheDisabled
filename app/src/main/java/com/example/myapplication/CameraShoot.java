@@ -80,6 +80,7 @@ public class CameraShoot extends AppCompatActivity {
                 takePicture();
             }
         });
+
     }
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override
