@@ -13,7 +13,6 @@ public class VoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice);
-        startActivity(new Intent(VoiceActivity.this, VoiceRecord.class));
         Button btn = (Button)findViewById(R.id.back_button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

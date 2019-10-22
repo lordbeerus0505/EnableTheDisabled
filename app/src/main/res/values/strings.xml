@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Android Camera API 2</string>
-    <string name="take_picture">Take picture</string>
+    <string name="app_name">Scaledrone chat</string>
+    <string name="input_placeholder">Write a message</string>
 </resources>
