@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/morseBut"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/morsebut"
+        android:maxHeight="80dp"
+        android:textColor="#CFD8DC"
+        android:textColorHint="#CFD8DC" />
+    <EditText
+        android:id="@+id/messageArea"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/mssg"
+        android:hint="_ Type a message"
+        android:maxHeight="80dp"
+        android:textColor="#CFD8DC"
+        android:textColorHint="#CFD8DC" />
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/cam"
+        android:maxHeight="80dp"
+        android:textColor="#CFD8DC"
+        android:textColorHint="#CFD8DC" />
+    <Button
+        android:id="@+id/search_voice_btn"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/mic"
+        android:maxHeight="80dp"
+        android:textColor="#CFD8DC"
+        android:textColorHint="#CFD8DC" />
+
+    <ImageView
+        android:id="@+id/sendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:background="@drawable/send"
+        android:padding="4dp" />
+
+</LinearLayout>

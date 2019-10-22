@@ -1,14 +1,17 @@
-package androidchatapp;
+package com.example.myapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,22 +33,22 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
+        setContentView(R.layout.activity_register_firebase);
+        System.out.println("inside register");
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         registerButton = (Button)findViewById(R.id.registerButton);
-        login = (TextView)findViewById(R.id.login);
-
+//        login = (TextView)findViewById(R.id.login);
+//
         Firebase.setAndroidContext(this);
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Register.this, Login.class));
-            }
-        });
-
+//
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(Register.this, Login.class));
+//            }
+//        });
+//
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,12 +75,12 @@ public class Register extends AppCompatActivity {
                                 pd.setMessage("Loading...");
                                 pd.show();
 
-                                String url = "https://androidchatapp-76776.firebaseio.com/users.json";
+                                String url = "https://myapplication-fc320.firebaseio.com/myapplication-fc320.json";
 
                                 StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                                     @Override
                                     public void onResponse(String s) {
-                                        Firebase reference = new Firebase("https://androidchatapp-76776.firebaseio.com/users");
+                                        Firebase reference = new Firebase("https://myapplication-fc320.firebaseio.com/myapplication-fc320");
 
                                         if(s.equals("null")) {
                                             reference.child(user).child("password").setValue(pass);
@@ -112,6 +115,7 @@ public class Register extends AppCompatActivity {
 
                                 RequestQueue rQueue = Volley.newRequestQueue(Register.this);
                                 rQueue.add(request);
+                                startActivity(new Intent(Register.this, Login.class));
                             }
             }
         });

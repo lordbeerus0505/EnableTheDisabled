@@ -19,6 +19,18 @@
         android:theme="@style/AppTheme">
         <activity android:name=".NewChat"></activity>
         <activity
+            android:name=".Chat"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".Users"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".Register"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
             android:name=".VoiceRecord"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
