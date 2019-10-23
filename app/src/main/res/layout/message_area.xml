@@ -34,7 +34,7 @@
         android:textColor="#CFD8DC"
         android:textColorHint="#CFD8DC" />
     <Button
-        android:id="@+id/voice_btn"
+        android:id="@+id/voiceBut"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

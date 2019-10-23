@@ -21,6 +21,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,19 +35,21 @@ public class Chat extends AppCompatActivity {
     ScrollView scrollView;
     Firebase reference1, reference2;
     Button camera_button,voice_btn,morseBut;
-
+    int count=0;
+    private String message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_firebase);
-
+        TextView textView=(TextView)findViewById(R.id.text);
+//        textView.setText("hellooooo");
         layout = (LinearLayout) findViewById(R.id.layout1);
         layout_2 = (RelativeLayout)findViewById(R.id.layout2);
         sendButton = (ImageView)findViewById(R.id.sendButton);
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
         camera_button=(Button)findViewById(R.id.camera_button);
-        voice_btn=(Button)findViewById(R.id.voice_button);
+        voice_btn=(Button)findViewById(R.id.voiceBut);
         morseBut=(Button)findViewById(R.id.morseBut);
 
         Firebase.setAndroidContext(this);
@@ -57,18 +61,27 @@ public class Chat extends AppCompatActivity {
                 startActivity(new Intent(Chat.this, CameraActivity.class));
             }
         });
-//        voice_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Chat.this, VoiceActivity.class));
-//            }
-//        });
+        voice_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Chat.this, VoiceRecord.class));
+            }
+        });
+        Intent intent = getIntent();
+        message = intent.getStringExtra("message");
+        if(message!=null)
+        {
+            count=1;
+        }
+        System.out.println("Message is "+message);
+//        textView.setText(message);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String messageText = messageArea.getText().toString();
-
+                if(count==1)
+                    messageText=message;
                 if(!messageText.equals("")){
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("message", messageText);

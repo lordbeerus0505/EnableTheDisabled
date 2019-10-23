@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.956" />
 
     <Button
-        android:id="@+id/record_button"
+        android:id="@+id/btnSpeak"
         android:layout_width="180dp"
         android:layout_height="150dp"
         android:background="@android:color/transparent"
@@ -110,4 +110,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.956" />
+
+    <TextView
+        android:id="@+id/requestDataTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="26dp"
+        android:hint="Speak Now"
+        android:gravity="center"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.247" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.751"
+        android:id="@+id/text"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
