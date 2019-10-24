@@ -39,7 +39,10 @@ public class VoiceRecord extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(VoiceRecord.this, VoiceRecord.class));
+                System.out.println("sending data now to TTS....");
+                Intent intent = new Intent(VoiceRecord.this, TextToSpeech.class);
+                intent.putExtra("message", txtSpeechInput.getText());
+                startActivity(intent);
             }
         });
         Button btn3 = (Button)findViewById(R.id.camera_button);
