@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -17,6 +19,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -34,15 +37,27 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class CameraShoot extends AppCompatActivity {
     private static final String TAG = "AndroidCameraApi";
     private Button takePictureButton;
@@ -78,7 +93,12 @@ public class CameraShoot extends AppCompatActivity {
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePicture();
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        takePicture();
+                    }
+                });
             }
         });
         Button btn=(Button)findViewById(R.id.back_button);
@@ -166,7 +186,7 @@ public class CameraShoot extends AppCompatActivity {
                 width = jpegSizes[0].getWidth();
                 height = jpegSizes[0].getHeight();
             }
-            ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
+            ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 2);
             List<Surface> outputSurfaces = new ArrayList<Surface>(2);
             outputSurfaces.add(reader.getSurface());
             outputSurfaces.add(new Surface(textureView.getSurfaceTexture()));
@@ -177,6 +197,8 @@ public class CameraShoot extends AppCompatActivity {
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
             final File file = new File(Environment.getExternalStorageDirectory()+"/pic.jpg");
+            final int finalWidth = width;
+            final int finalHeight = height;
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
@@ -184,13 +206,29 @@ public class CameraShoot extends AppCompatActivity {
                     try {
                         image = reader.acquireLatestImage();
                         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inPreferredConfig = Bitmap.Config.RGB_565;
+
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
-                        save(bytes);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+                        byte[] byteArray = stream.toByteArray();
+
+                        RequestBody postBodyImage = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("image", "gesture.jpg", RequestBody.create(MediaType.parse("image/*jpg"), byteArray))
+                                .build();
+
+                        String postUrl = "http://192.168.43.13:5000";
+
+                        postRequest(postUrl, postBodyImage);
+//                        save(bytes);
                     } finally {
                         if (image != null) {
                             image.close();
@@ -331,5 +369,36 @@ public class CameraShoot extends AppCompatActivity {
         //closeCamera();
         stopBackgroundThread();
         super.onPause();
+    }
+
+    private Bitmap getBitmap(Buffer buffer, int width, int height) {
+        buffer.rewind();
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        bitmap.copyPixelsFromBuffer(buffer);
+        return bitmap;
+    }
+
+    private int postRequest(String postUrl, RequestBody formBody) {
+        int status = 0;
+        OkHttpClient client = new OkHttpClient();
+
+        System.out.println(1);
+
+        Request request = new Request.Builder()
+                .url(postUrl)
+                .post(formBody)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+            if(response.code() == 200)
+                status = 1;
+
+            response.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return status;
     }
 }
