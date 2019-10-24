@@ -43,7 +43,7 @@
             android:layout_marginRight="0dp"
             android:layout_marginBottom="545dp"
             android:backgroundTint="@android:color/transparent"
-            android:hint=""
+            android:hint="Enter Text"
             android:textColor="#ff7aff10"
             android:textColorHint="#ffff23d1" />
 
