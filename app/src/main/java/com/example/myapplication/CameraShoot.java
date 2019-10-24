@@ -90,17 +90,40 @@ public class CameraShoot extends AppCompatActivity {
         textureView.setSurfaceTextureListener(textureListener);
         takePictureButton = (Button) findViewById(R.id.btn_takepicture);
         assert takePictureButton != null;
-        takePictureButton.setOnClickListener(new View.OnClickListener() {
+//        takePictureButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AsyncTask.execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        takePicture();
+//                    }
+//                });
+//            }
+//        });
+
+        Thread t1 = new Thread(new Runnable() {
             @Override
-            public void onClick(View v) {
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        takePicture();
+            public void run() {
+                while(true)
+                {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                });
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            takePicture();
+                        }
+                    });
+                }
             }
         });
+
+        t1.start();
+
         Button btn=(Button)findViewById(R.id.back_button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
