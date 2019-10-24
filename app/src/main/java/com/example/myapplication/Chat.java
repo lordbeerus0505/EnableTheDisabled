@@ -34,8 +34,10 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
+    ImageView text2speech;
     Button camera_button,voice_btn,morseBut;
     int count=0;
+    String lastmessage="";
     private String message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +53,10 @@ public class Chat extends AppCompatActivity {
         camera_button=(Button)findViewById(R.id.camera_button);
         voice_btn=(Button)findViewById(R.id.voiceBut);
         morseBut=(Button)findViewById(R.id.morseBut);
-
+        text2speech=(ImageView)findViewById(R.id.text2speech);
         Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://androidchatapp-76776.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
-        reference2 = new Firebase("https://androidchatapp-76776.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
+        reference1 = new Firebase("https://myapplication-fc320.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
+        reference2 = new Firebase("https://myapplication-fc320.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
         camera_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +67,15 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Chat.this, VoiceRecord.class));
+            }
+        });
+        text2speech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Chat.this, TextToSpeech.class);
+                intent.putExtra("message", lastmessage);
+                startActivity(intent);
+//                startActivity(new Intent(Chat.this, TextToSpeech.class));
             }
         });
         Intent intent = getIntent();
@@ -80,6 +91,7 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String messageText = messageArea.getText().toString();
+
                 if(count==1)
                     messageText=message;
                 if(!messageText.equals("")){
@@ -99,6 +111,8 @@ public class Chat extends AppCompatActivity {
                 Map map = dataSnapshot.getValue(Map.class);
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
+                System.out.println(map.size());
+                lastmessage=message;
 
                 if(userName.equals(UserDetails.username)){
                     addMessageBox("You:-\n" + message, 1);
