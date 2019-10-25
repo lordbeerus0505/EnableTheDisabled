@@ -107,6 +107,7 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String messageText = messageArea.getText().toString();
+
                 if(count==1)
                 {messageText=message;
                     count=0;}//Check if this works else remove the count.
