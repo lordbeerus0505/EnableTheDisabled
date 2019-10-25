@@ -81,6 +81,13 @@ public class CameraShoot extends AppCompatActivity {
     private boolean mFlashSupported;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
+
+//    ByteBuffer buffer;
+    ByteArrayOutputStream stream;
+    String postUrl;
+    OkHttpClient client;
+    Request request;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,26 +109,21 @@ public class CameraShoot extends AppCompatActivity {
 //            }
 //        });
 
+        initialize();
+
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true)
-                {
+                while (true) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            takePicture();
-                        }
-                    });
+                    takePicture();
                 }
             }
         });
-
         t1.start();
 
         Button btn=(Button)findViewById(R.id.back_button);
@@ -222,60 +224,34 @@ public class CameraShoot extends AppCompatActivity {
             final File file = new File(Environment.getExternalStorageDirectory()+"/pic.jpg");
             final int finalWidth = width;
             final int finalHeight = height;
+            System.out.println("shanku waifu");
+
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
                     Image image = null;
                     try {
                         image = reader.acquireLatestImage();
-                        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+                        final ByteBuffer buffer = image.getPlanes()[0].getBuffer();
 
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inPreferredConfig = Bitmap.Config.RGB_565;
+                        System.out.println("shanku faggitu");
 
-                        byte[] bytes = new byte[buffer.capacity()];
-                        buffer.get(bytes);
+                        sendPicture(buffer);
 
-                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
-                        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-                        byte[] byteArray = stream.toByteArray();
-
-                        RequestBody postBodyImage = new MultipartBody.Builder()
-                                .setType(MultipartBody.FORM)
-                                .addFormDataPart("image", "gesture.jpg", RequestBody.create(MediaType.parse("image/*jpg"), byteArray))
-                                .build();
-
-                        String postUrl = "http://192.168.43.13:5000";
-
-                        postRequest(postUrl, postBodyImage);
-//                        save(bytes);
                     } finally {
                         if (image != null) {
                             image.close();
                         }
                     }
                 }
-                private void save(byte[] bytes) throws IOException {
-                    OutputStream output = null;
-                    try {
-                        output = new FileOutputStream(file);
-                        output.write(bytes);
-                    } finally {
-                        if (null != output) {
-                            output.close();
-                        }
-                    }
-                }
+
             };
             reader.setOnImageAvailableListener(readerListener, mBackgroundHandler);
             final CameraCaptureSession.CaptureCallback captureListener = new CameraCaptureSession.CaptureCallback() {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(CameraShoot.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(CameraShoot.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
                     createCameraPreview();
                 }
             };
@@ -403,14 +379,8 @@ public class CameraShoot extends AppCompatActivity {
 
     private int postRequest(String postUrl, RequestBody formBody) {
         int status = 0;
-        OkHttpClient client = new OkHttpClient();
 
-        System.out.println(1);
-
-        Request request = new Request.Builder()
-                .url(postUrl)
-                .post(formBody)
-                .build();
+        request = new Request.Builder().url(postUrl).post(formBody).build();
 
         try {
             Response response = client.newCall(request).execute();
@@ -423,5 +393,32 @@ public class CameraShoot extends AppCompatActivity {
             e.printStackTrace();
         }
         return status;
+    }
+
+    void sendPicture(ByteBuffer buffer) {
+        byte[] bytes = new byte[buffer.capacity()];
+        buffer.get(bytes);
+
+        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+        byte[] byteArray = stream.toByteArray();
+
+        RequestBody postBodyImage = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", "gesture.jpg", RequestBody.create(MediaType.parse("image/*jpg"), byteArray))
+                .build();
+
+        postRequest(postUrl, postBodyImage);
+    }
+
+    void initialize(){
+        stream = new ByteArrayOutputStream();
+
+        postUrl = "http://192.168.43.13:5000";
+
+        client = new OkHttpClient();
+
     }
 }
