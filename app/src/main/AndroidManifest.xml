@@ -4,8 +4,9 @@
 
     <uses-sdk android:targetSdkVersion="28" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -20,8 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TextToSpeech"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" ></activity>
+        <activity android:name=".Text2Morse"></activity>
+        <activity android:name=".MorseActivity" />
+        <activity
+            android:name=".TextToSpeech"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity android:name=".NewChat" />
         <activity
             android:name=".Chat"
@@ -35,7 +39,6 @@
         <activity
             android:name=".Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-
         <activity
             android:name=".VoiceRecord"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />

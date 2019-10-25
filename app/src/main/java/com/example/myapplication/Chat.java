@@ -34,7 +34,7 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
-    ImageView text2speech;
+    ImageView text2speech,text2morse;
     Button camera_button,voice_btn,morseBut;
     int count=0;
     String lastmessage="";
@@ -51,9 +51,16 @@ public class Chat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
         camera_button=(Button)findViewById(R.id.camera_button);
+        text2morse=(ImageView)findViewById(R.id.text2morse);
         voice_btn=(Button)findViewById(R.id.voiceBut);
         morseBut=(Button)findViewById(R.id.morseBut);
         text2speech=(ImageView)findViewById(R.id.text2speech);
+        morseBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Chat.this, MorseActivity.class));
+            }
+        });
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://myapplication-fc320.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = new Firebase("https://myapplication-fc320.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
@@ -67,6 +74,15 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Chat.this, VoiceRecord.class));
+            }
+        });
+        text2morse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Chat.this, Text2Morse.class);
+                intent.putExtra("message", lastmessage);
+                startActivity(intent);
+//                startActivity(new Intent(Chat.this, TextToSpeech.class));
             }
         });
         text2speech.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +107,9 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String messageText = messageArea.getText().toString();
-
                 if(count==1)
-                    messageText=message;
+                {messageText=message;
+                    count=0;}//Check if this works else remove the count.
                 if(!messageText.equals("")){
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("message", messageText);
