@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TextToSpeech"></activity>
+        <activity android:name=".TextToSpeech"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" ></activity>
         <activity android:name=".NewChat" />
         <activity
             android:name=".Chat"
