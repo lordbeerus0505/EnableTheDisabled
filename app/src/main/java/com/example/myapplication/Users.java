@@ -60,11 +60,14 @@ public class Users extends AppCompatActivity {
 
         RequestQueue rQueue = Volley.newRequestQueue(Users.this);
         rQueue.add(request);
+//        System.out.println(al.get(1));
+        System.out.println("Hello from the other side");
 
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserDetails.chatWith = al.get(position);
+                System.out.println(position+"\n\n\n\nhello");
                 startActivity(new Intent(Users.this, Chat.class));
             }
         });
@@ -82,6 +85,7 @@ public class Users extends AppCompatActivity {
 
                 if(!key.equals(UserDetails.username)) {
                     al.add(key);
+                    System.out.println("AL.get() "+key);
                 }
 
                 totalUsers++;
