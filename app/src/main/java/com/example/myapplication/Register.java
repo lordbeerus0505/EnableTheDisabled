@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity {
                                 final ProgressDialog pd = new ProgressDialog(Register.this);
                                 pd.setMessage("Loading...");
                                 pd.show();
-
+                                System.out.println("hiiii");
                                 String url = "https://myapplication-fc320.firebaseio.com/myapplication-fc320.json";
 
                                 StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
@@ -87,6 +87,7 @@ public class Register extends AppCompatActivity {
                                             Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                         }
                                         else {
+                                            System.out.println("CRASHING");
                                             try {
                                                 JSONObject obj = new JSONObject(s);
 

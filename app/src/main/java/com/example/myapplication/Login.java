@@ -25,7 +25,7 @@ import org.json.JSONObject;
 public class Login extends AppCompatActivity {
     TextView registerUser;
     EditText username, password;
-    Button loginButton;
+    Button loginButton,signup;
     String user, pass;
 
     @Override
@@ -33,24 +33,18 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_firebase);
 
-        registerUser = (TextView)findViewById(R.id.register);
+
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
-
-        registerUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, Register.class));
-            }
-        });
+        signup=(Button)findViewById(R.id.signup);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 user = username.getText().toString();
                 pass = password.getText().toString();
-
+                System.out.println("hellooo");
                 if(user.equals("")){
                     username.setError("can't be blank");
                 }
@@ -58,18 +52,21 @@ public class Login extends AppCompatActivity {
                     password.setError("can't be blank");
                 }
                 else{
+//
                     String url = "https://myapplication-fc320.firebaseio.com/myapplication-fc320.json";
                     final ProgressDialog pd = new ProgressDialog(Login.this);
                     pd.setMessage("Loading...");
                     pd.show();
-
+//                    System.out.println("Pressed login button");
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                         @Override
                         public void onResponse(String s) {
                             if(s.equals("null")){
+
                                 Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                             }
                             else{
+
                                 try {
                                     JSONObject obj = new JSONObject(s);
 
@@ -103,6 +100,14 @@ public class Login extends AppCompatActivity {
                     rQueue.add(request);
                 }
 
+            }
+        });
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Pressing button");
+                startActivity(new Intent(Login.this, Register.class));
             }
         });
     }
