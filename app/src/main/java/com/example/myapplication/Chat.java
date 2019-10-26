@@ -36,7 +36,7 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
-    ImageView text2speech,text2morse;
+    Button text2speech,text2morse;
     Button camera_button,voice_btn,morseBut;
     SettingsContentObserver volObserver;
 
@@ -54,10 +54,10 @@ public class Chat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
         camera_button=(Button)findViewById(R.id.camera_button);
-        text2morse=(ImageView)findViewById(R.id.text2morse);
+        text2morse=(Button) findViewById(R.id.text2morse);
         voice_btn=(Button)findViewById(R.id.voiceBut);
         morseBut=(Button)findViewById(R.id.morseBut);
-        text2speech=(ImageView)findViewById(R.id.text2speech);
+        text2speech=(Button) findViewById(R.id.text2speech);
 
         volObserver = new SettingsContentObserver(this, new Handler(), Chat.this);
         getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, volObserver);
@@ -142,10 +142,10 @@ public class Chat extends AppCompatActivity {
                 UserDetails.lastmessage=message;
 
                 if(userName.equals(UserDetails.username)){
-                    addMessageBox("You:-\n" + message, 1);
+                    addMessageBox(  "\n  "+message+"  ", 1);
                 }
                 else{
-                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
+                    addMessageBox(   "\n  " + message+ "  ", 2);
                 }
             }
 
@@ -174,17 +174,17 @@ public class Chat extends AppCompatActivity {
     public void addMessageBox(String message, int type){
         TextView textView = new TextView(Chat.this);
         textView.setText(message);
-
+        System.out.println("Message is "+message);
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp2.weight = 1.0f;
-
+        lp2.setMargins(20,3,10,3);
         if(type == 1) {
-            lp2.gravity = Gravity.LEFT;
-            textView.setBackgroundResource(R.drawable.bubble_in);
+            lp2.gravity = Gravity.RIGHT;
+            textView.setBackgroundResource(R.drawable.sender);
         }
         else{
-            lp2.gravity = Gravity.RIGHT;
-            textView.setBackgroundResource(R.drawable.bubble_out);
+            lp2.gravity = Gravity.LEFT;
+            textView.setBackgroundResource(R.drawable.receiver);
         }
         textView.setLayoutParams(lp2);
         layout.addView(textView);

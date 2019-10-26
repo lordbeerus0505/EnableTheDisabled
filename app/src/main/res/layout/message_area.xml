@@ -7,20 +7,30 @@
 
     <Button
         android:id="@+id/morseBut"
-        android:layout_width="144dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/morsebut"
+        android:background="@android:color/transparent"
         android:maxHeight="80dp"
         android:textColor="#CFD8DC"
         android:textColorHint="#CFD8DC" />
-    <EditText
-        android:id="@+id/messageArea"
-        android:layout_width="310dp"
+
+    <Button
+        android:id="@+id/voiceBut"
+        android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/mssg"
-        android:hint="_ Type a message"
+        android:background="@android:color/transparent"
+        android:maxHeight="80dp"
+        android:textColor="#CFD8DC"
+        android:textColorHint="#CFD8DC" />
+
+    <EditText
+        android:id="@+id/messageArea"
+        android:layout_width="267dp"
+        android:layout_height="44dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
         android:maxHeight="80dp"
         android:textColor="#CFD8DC"
         android:textColorHint="#CFD8DC" />
@@ -29,26 +39,18 @@
         android:layout_width="144dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/cam"
-        android:maxHeight="80dp"
-        android:textColor="#CFD8DC"
-        android:textColorHint="#CFD8DC" />
-    <Button
-        android:id="@+id/voiceBut"
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/mic"
+        android:background="@android:color/transparent"
         android:maxHeight="80dp"
         android:textColor="#CFD8DC"
         android:textColorHint="#CFD8DC" />
 
+
     <ImageView
         android:id="@+id/sendButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
         android:layout_weight="4"
-        android:background="@drawable/send"
         android:padding="4dp" />
 
 </LinearLayout>
