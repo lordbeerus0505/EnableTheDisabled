@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Handler;
@@ -40,6 +43,7 @@ public class Chat extends AppCompatActivity {
     Button text2speech,text2morse;
     Button camera_button,voice_btn,morseBut;
     SettingsContentObserver volObserver;
+    Dialog myDialog;
 
     int count=0;
     private String message;
@@ -59,6 +63,8 @@ public class Chat extends AppCompatActivity {
         voice_btn=(Button)findViewById(R.id.voiceBut);
         morseBut=(Button)findViewById(R.id.morseBut);
         text2speech=(Button) findViewById(R.id.text2speech);
+
+        myDialog = new Dialog(this);
 
         volObserver = new SettingsContentObserver(this, new Handler(), Chat.this);
         getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, volObserver);
@@ -83,8 +89,9 @@ public class Chat extends AppCompatActivity {
         camera_button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                // TODO Auto-generated method stub
-                Toast.makeText(getApplicationContext(),"You have pressed it long :)", Toast.LENGTH_LONG).show();
+
+                ShowPopup(v);
+
                 return true;
             }
         });
@@ -199,5 +206,21 @@ public class Chat extends AppCompatActivity {
         textView.setLayoutParams(lp2);
         layout.addView(textView);
         scrollView.fullScroll(View.FOCUS_DOWN);
+    }
+
+    public void ShowPopup(View v) {
+        myDialog.setContentView(R.layout.cheat_sheet);
+
+        Button closeSheet = myDialog.findViewById(R.id.closeSheet);
+
+        closeSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+
     }
 }
