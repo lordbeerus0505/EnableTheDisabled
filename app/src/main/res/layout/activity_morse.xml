@@ -9,25 +9,27 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="295dp"
-        android:layout_height="97dp"
+        android:layout_width="312dp"
+        android:layout_height="47dp"
         android:hint="Press the buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.198" />
+        app:layout_constraintVertical_bias="0.181" />
 
     <Button
         android:id="@+id/longBut"
-        android:layout_width="375dp"
-        android:layout_height="91dp"
+        android:layout_width="373dp"
+        android:layout_height="29dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shortBut"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/spaceBut"
@@ -36,22 +38,21 @@
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shortBut"
-        app:layout_constraintVertical_bias="0.453" />
+        app:layout_constraintVertical_bias="0.359" />
 
     <Button
         android:id="@+id/shortBut"
-        android:layout_width="381dp"
-        android:layout_height="84dp"
+        android:layout_width="393dp"
+        android:layout_height="285dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.401" />
+        app:layout_constraintVertical_bias="0.423" />
 
     <Button
         android:id="@+id/Send"

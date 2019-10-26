@@ -36,14 +36,22 @@ public class MorseActivity extends AppCompatActivity {
         Send=(Button)findViewById(R.id.Send);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         textView=(TextView)findViewById(R.id.textView);
-        longBtn.setOnClickListener(new View.OnClickListener() {
+
+        shortBtn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onLongClick(View v) {
+                // TODO Auto-generated method stub
+                Toast.makeText(getApplicationContext(),"You have pressed it long :)", Toast.LENGTH_LONG).show();
                 System.out.println("Vibration long");
                 vibrator.vibrate(400);
                 letter+='-';
+                return true;
+
             }
         });
+
+
+
         shortBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +64,7 @@ public class MorseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("Letter is "+letter);
-                vibrator.vibrate(200);
+                vibrator.vibrate(1000);
                 String txtToConvert = letter;
                 convertedTxt += MorseCode.morseToAlpha(txtToConvert);
                 convertedTxt.trim();

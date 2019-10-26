@@ -32,7 +32,7 @@ public class Text2Morse extends AppCompatActivity {
     private void process(String text){
         String letter="";
         text=MorseCode.alphaToMorse(text);
-        mess.setText(text);
+//        mess.setText(text);
         text=text.trim();
         text+=' ';
         long[] vib = new long[1000];
