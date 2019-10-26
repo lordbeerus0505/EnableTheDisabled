@@ -36,8 +36,8 @@ dependencies {
     //For adding OkHttp library to communicate with WebApp
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
 
-    compile 'com.android.support:support-v4:29.+'
-    compile 'com.android.support:design:29.+'
+    implementation 'com.android.support:support-v4:29.+'
+    implementation 'com.android.support:design:29.+'
 
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'

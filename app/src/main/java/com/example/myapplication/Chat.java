@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -79,6 +80,15 @@ public class Chat extends AppCompatActivity {
                 startActivity(new Intent(Chat.this, CameraActivity.class));
             }
         });
+        camera_button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                // TODO Auto-generated method stub
+                Toast.makeText(getApplicationContext(),"You have pressed it long :)", Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
+
         voice_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
