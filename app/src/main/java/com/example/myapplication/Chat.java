@@ -3,7 +3,9 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,8 +38,9 @@ public class Chat extends AppCompatActivity {
     Firebase reference1, reference2;
     ImageView text2speech,text2morse;
     Button camera_button,voice_btn,morseBut;
+    SettingsContentObserver volObserver;
+
     int count=0;
-    String lastmessage="";
     private String message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,10 @@ public class Chat extends AppCompatActivity {
         voice_btn=(Button)findViewById(R.id.voiceBut);
         morseBut=(Button)findViewById(R.id.morseBut);
         text2speech=(ImageView)findViewById(R.id.text2speech);
+
+        volObserver = new SettingsContentObserver(this, new Handler(), Chat.this);
+        getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, volObserver);
+
         morseBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,11 +83,12 @@ public class Chat extends AppCompatActivity {
                 startActivity(new Intent(Chat.this, VoiceRecord.class));
             }
         });
+
         text2morse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Chat.this, Text2Morse.class);
-                intent.putExtra("message", lastmessage);
+                intent.putExtra("message", UserDetails.lastmessage);
                 startActivity(intent);
 //                startActivity(new Intent(Chat.this, TextToSpeech.class));
             }
@@ -89,7 +97,7 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Chat.this, TextToSpeech.class);
-                intent.putExtra("message", lastmessage);
+                intent.putExtra("message", UserDetails.lastmessage);
                 startActivity(intent);
 //                startActivity(new Intent(Chat.this, TextToSpeech.class));
             }
@@ -129,7 +137,7 @@ public class Chat extends AppCompatActivity {
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
                 System.out.println(map.size());
-                lastmessage=message;
+                UserDetails.lastmessage=message;
 
                 if(userName.equals(UserDetails.username)){
                     addMessageBox("You:-\n" + message, 1);
