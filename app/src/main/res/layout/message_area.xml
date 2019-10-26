@@ -36,6 +36,7 @@
         android:textColorHint="#CFD8DC" />
     <Button
         android:id="@+id/camera_button"
+        android:longClickable="true"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -78,7 +78,7 @@ public class MorseActivity extends AppCompatActivity {
                     char c=convertedTxt.charAt(i);
                     if(c!=' ')
                         s+=c;
-                } 
+                }
                 System.out.println(s);
                 System.out.println("sending data now....");
                 Intent intent = new Intent(MorseActivity.this, Chat.class);
