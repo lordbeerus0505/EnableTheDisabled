@@ -29,6 +29,7 @@ public class Users extends AppCompatActivity {
     ListView usersList;
     TextView noUsersText;
     ArrayList<String> al = new ArrayList<>();
+    ArrayList<String> al_empty = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
 
@@ -67,6 +68,7 @@ public class Users extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserDetails.chatWith = al.get(position);
+                al.remove(position);
                 System.out.println(position+"\n\n\n\nhello");
                 startActivity(new Intent(Users.this, Chat.class));
             }
@@ -84,6 +86,7 @@ public class Users extends AppCompatActivity {
                 key = i.next().toString();
 
                 if(!key.equals(UserDetails.username)) {
+                    al_empty.add("");
                     al.add(key);
                     System.out.println("AL.get() "+key);
                 }
@@ -102,7 +105,7 @@ public class Users extends AppCompatActivity {
         else{
             noUsersText.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, al));
+            usersList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, al_empty));
         }
 
         pd.dismiss();
