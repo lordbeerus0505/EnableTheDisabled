@@ -32,7 +32,7 @@ public class CameraActivity extends AppCompatActivity {
                 .build();
 
         final Request request = new Request.Builder()
-                .url("http://192.168.43.13:5000")
+                .url("http://10.16.160.162:5000")
                 .post(formBody)
                 .build();
 
