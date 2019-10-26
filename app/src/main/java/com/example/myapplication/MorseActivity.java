@@ -3,7 +3,10 @@ package com.example.myapplication;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -16,9 +19,11 @@ import android.widget.Toast;
 public class MorseActivity extends AppCompatActivity {
 
     Vibrator vibrator;
-    Button longBtn,shortBtn,spaceBtn,Send;
+    Button longBtn,shortBtn,spaceBtn,cheatSheetBtn,Send;
     TextView textView;
     String letter=" ",convertedTxt="";
+    Dialog myDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +31,8 @@ public class MorseActivity extends AppCompatActivity {
         longBtn=(Button)findViewById(R.id.longBut);
         shortBtn=(Button)findViewById(R.id.shortBut);
         spaceBtn=(Button)findViewById(R.id.spaceBut);
+        cheatSheetBtn=(Button)findViewById(R.id.cheatSheet);
+
         Send=(Button)findViewById(R.id.Send);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         textView=(TextView)findViewById(R.id.textView);
@@ -57,6 +64,9 @@ public class MorseActivity extends AppCompatActivity {
                 letter="";
             }
         });
+
+
+
         Send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +86,10 @@ public class MorseActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        myDialog = new Dialog(this);
+
+
 
 //
 //        if (vibrator != null && vibrator.hasVibrator()) {
@@ -151,4 +165,20 @@ public class MorseActivity extends AppCompatActivity {
             vibrator.vibrate(effect);
         }
     }
+    public void ShowPopup(View v) {
+        myDialog.setContentView(R.layout.cheat_sheet);
+
+        Button closeSheet = myDialog.findViewById(R.id.closeSheet);
+
+        closeSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+
+    }
+
 }
