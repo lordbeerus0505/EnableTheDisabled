@@ -27,9 +27,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FileOpen">
-
-        </activity>
+        <activity android:name=".Gesture"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
+        <activity android:name=".FileOpen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
         <activity
             android:name=".Start"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
@@ -39,8 +40,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Text2Morse" />
-        <activity android:name=".MorseActivity" />
+        <activity
+            android:name=".Text2Morse"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".MorseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".TextToSpeech"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
@@ -80,7 +85,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" /> <!-- <activity android:name=".LoginActivity" /> -->
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>

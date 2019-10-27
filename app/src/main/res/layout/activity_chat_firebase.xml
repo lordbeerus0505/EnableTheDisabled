@@ -14,17 +14,6 @@
         android:layout_height="117dp"
         tools:context=".VoiceRecord">
 
-        <Button
-            android:id="@+id/text2speech"
-            android:layout_width="34dp"
-            android:layout_height="48dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.838"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <!--        <ImageView-->
         <!--            android:id="@+id/text2speech"-->
         <!--            android:layout_width="match_parent"-->
@@ -38,16 +27,29 @@
         <!--            app:layout_constraintVertical_bias="0.266" />-->
 
         <Button
-            android:id="@+id/text2morse"
-            android:layout_width="43dp"
+            android:id="@+id/text2speech"
+            android:layout_width="64dp"
             android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.913"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.238" />
+
+        <Button
+            android:id="@+id/text2morse"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:background="@android:color/transparent"
             android:src="@drawable/morsebut"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.986"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/text"

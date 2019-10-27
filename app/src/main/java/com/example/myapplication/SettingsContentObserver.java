@@ -37,7 +37,15 @@ public class SettingsContentObserver extends ContentObserver {
 
         int delta=previousVolume-currentVolume;
 
-        if(delta != 0)
+        if(delta > 0)
+        {
+            Intent intent = new Intent(chat, MorseActivity.class);
+            intent.putExtra("message", UserDetails.lastmessage);
+
+            context.startActivity(intent);
+            previousVolume=currentVolume;
+        }
+        if(delta < 0)
         {
             Intent intent = new Intent(chat, Text2Morse.class);
             intent.putExtra("message", UserDetails.lastmessage);

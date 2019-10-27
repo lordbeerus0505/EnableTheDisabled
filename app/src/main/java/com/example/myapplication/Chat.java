@@ -89,10 +89,12 @@ public class Chat extends AppCompatActivity {
         camera_button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-                ShowPopup(v);
-
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(Chat.this, Gesture.class);
+                intent.putExtra("message", UserDetails.lastmessage);
+                startActivity(intent);
                 return true;
+
             }
         });
 
